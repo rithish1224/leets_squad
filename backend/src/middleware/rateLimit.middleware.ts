@@ -68,7 +68,7 @@ export const authLimiter = createRateLimiter({
 
 export const passwordResetLimiter = createRateLimiter({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5, // 5 password reset requests per hour
+  max: 20, // 20 password reset requests per hour
   message: 'Too many password reset requests, please try again later',
 });
 
