@@ -280,8 +280,16 @@ export async function verifyOtpAndResetPassword(
   }
 
   // Password validation
-  if (newPassword.length < 6) {
-    throw new AppError(400, 'Password must be at least 6 characters');
+  if (
+    newPassword.length < 8 ||
+    !/[A-Z]/.test(newPassword) ||
+    !/\d/.test(newPassword) ||
+    !/[^A-Za-z0-9]/.test(newPassword)
+  ) {
+    throw new AppError(
+      400,
+      'Password must be at least 8 characters and contain at least one uppercase letter, one number, and one symbol'
+    );
   }
 
   // Hash new password and clear OTP

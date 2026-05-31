@@ -42,6 +42,24 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (form.password.length < 8) {
+      setError('Password must be at least 8 characters');
+      return;
+    }
+    if (!/[A-Z]/.test(form.password)) {
+      setError('Password must contain at least one uppercase letter');
+      return;
+    }
+    if (!/\d/.test(form.password)) {
+      setError('Password must contain at least one number');
+      return;
+    }
+    if (!/[^A-Za-z0-9]/.test(form.password)) {
+      setError('Password must contain at least one symbol');
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await authApi.register(form);
@@ -108,7 +126,7 @@ export default function RegisterPage() {
                 type={showPassword ? 'text' : 'password'}
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
-                placeholder="Min 6 characters"
+                placeholder="Min 8 characters (1 uppercase, 1 number, 1 symbol)"
                 required
                 className="w-full px-4 py-3 pr-12 glass rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#00e699]/40 focus:ring-1 focus:ring-[#00e699]/20 transition-all"
               />

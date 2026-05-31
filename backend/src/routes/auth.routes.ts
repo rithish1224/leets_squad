@@ -21,7 +21,11 @@ router.post(
   [
     body('username').trim().isLength({ min: 3, max: 50 }).withMessage('Username must be 3-50 characters'),
     body('email').isEmail().withMessage('Valid email required').trim().toLowerCase(),
-    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+    body('password')
+      .isLength({ min: 8 }).withMessage('Password must be at least 8 characters')
+      .matches(/[A-Z]/).withMessage('Password must contain at least one uppercase letter')
+      .matches(/\d/).withMessage('Password must contain at least one number')
+      .matches(/[^A-Za-z0-9]/).withMessage('Password must contain at least one symbol'),
     body('leetcode_username').optional().trim(),
     body('timezone').optional().trim(),
   ],
@@ -106,7 +110,11 @@ router.post(
   [
     body('email').isEmail().withMessage('Valid email required').trim().toLowerCase(),
     body('otp').trim().isLength({ min: 6, max: 6 }).isNumeric().withMessage('OTP must be 6 digits'),
-    body('newPassword').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+    body('newPassword')
+      .isLength({ min: 8 }).withMessage('Password must be at least 8 characters')
+      .matches(/[A-Z]/).withMessage('Password must contain at least one uppercase letter')
+      .matches(/\d/).withMessage('Password must contain at least one number')
+      .matches(/[^A-Za-z0-9]/).withMessage('Password must contain at least one symbol'),
   ],
   validate,
   async (req: Request, res: Response, next: NextFunction) => {

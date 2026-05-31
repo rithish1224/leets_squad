@@ -107,8 +107,20 @@ export default function ResetPasswordPage() {
       return;
     }
 
-    if (newPassword.length < 6) {
-      setError('Password must be at least 6 characters');
+    if (newPassword.length < 8) {
+      setError('Password must be at least 8 characters');
+      return;
+    }
+    if (!/[A-Z]/.test(newPassword)) {
+      setError('Password must contain at least one uppercase letter');
+      return;
+    }
+    if (!/\d/.test(newPassword)) {
+      setError('Password must contain at least one number');
+      return;
+    }
+    if (!/[^A-Za-z0-9]/.test(newPassword)) {
+      setError('Password must contain at least one symbol');
       return;
     }
 
@@ -221,7 +233,7 @@ export default function ResetPasswordPage() {
                 type={showPassword ? 'text' : 'password'}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Min 6 characters"
+                placeholder="Min 8 characters (1 uppercase, 1 number, 1 symbol)"
                 required
                 className="w-full px-4 py-3 pr-12 glass rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#00e699]/40 focus:ring-1 focus:ring-[#00e699]/20 transition-all"
               />
