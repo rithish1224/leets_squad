@@ -30,9 +30,10 @@ export default function LoginPage() {
       login(res.data.data.token, res.data.data.user);
       navigate('/dashboard');
     } catch (err: unknown) {
-      const msg =
-        (err as { response?: { data?: { error?: string } } })?.response?.data?.error ??
-        'Login failed';
+      const errorData = (err as { response?: { data?: { error?: string | { message?: string } } } })?.response?.data?.error;
+      const msg = typeof errorData === 'object' && errorData !== null
+        ? errorData.message || 'Login failed'
+        : (errorData as string) || 'Login failed';
       setError(msg);
     } finally {
       setLoading(false);

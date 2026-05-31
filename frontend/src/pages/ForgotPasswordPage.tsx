@@ -51,9 +51,10 @@ export default function ForgotPasswordPage() {
         setResendTimer(30);
       }
     } catch (err: unknown) {
-      const msg =
-        (err as { response?: { data?: { error?: string } } })?.response?.data?.error ??
-        'Failed to send OTP';
+      const errorData = (err as { response?: { data?: { error?: string | { message?: string } } } })?.response?.data?.error;
+      const msg = typeof errorData === 'object' && errorData !== null
+        ? errorData.message || 'Failed to send OTP'
+        : (errorData as string) || 'Failed to send OTP';
       setError(msg);
     } finally {
       setLoading(false);
@@ -74,9 +75,10 @@ export default function ForgotPasswordPage() {
       setResendTimer(30);
       setTimeout(() => setSuccess(''), 2000);
     } catch (err: unknown) {
-      const msg =
-        (err as { response?: { data?: { error?: string } } })?.response?.data?.error ??
-        'Failed to resend OTP';
+      const errorData = (err as { response?: { data?: { error?: string | { message?: string } } } })?.response?.data?.error;
+      const msg = typeof errorData === 'object' && errorData !== null
+        ? errorData.message || 'Failed to resend OTP'
+        : (errorData as string) || 'Failed to resend OTP';
       setError(msg);
     } finally {
       setLoading(false);

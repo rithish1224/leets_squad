@@ -48,9 +48,10 @@ export default function RegisterPage() {
       login(res.data.data.token, res.data.data.user);
       navigate('/dashboard');
     } catch (err: unknown) {
-      const msg =
-        (err as { response?: { data?: { error?: string } } })?.response?.data?.error ??
-        'Registration failed';
+      const errorData = (err as { response?: { data?: { error?: string | { message?: string } } } })?.response?.data?.error;
+      const msg = typeof errorData === 'object' && errorData !== null
+        ? errorData.message || 'Registration failed'
+        : (errorData as string) || 'Registration failed';
       setError(msg);
     } finally {
       setLoading(false);

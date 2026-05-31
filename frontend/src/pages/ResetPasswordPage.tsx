@@ -33,7 +33,10 @@ export default function ResetPasswordPage() {
         setEmail(response.data.data.email);
         setIsLoadingToken(false);
       } catch (err: unknown) {
-        const msg = (err as { response?: { data?: { error?: string } } })?.response?.data?.error ?? 'Invalid or expired reset link';
+        const errorData = (err as { response?: { data?: { error?: string | { message?: string } } } })?.response?.data?.error;
+        const msg = typeof errorData === 'object' && errorData !== null
+          ? errorData.message || 'Invalid or expired reset link'
+          : (errorData as string) || 'Invalid or expired reset link';
         setError(msg);
         setIsLoadingToken(false);
       }
@@ -78,9 +81,10 @@ export default function ResetPasswordPage() {
       setResendTimer(30);
       setTimeout(() => setSuccess(''), 2000);
     } catch (err: unknown) {
-      const msg =
-        (err as { response?: { data?: { error?: string } } })?.response?.data?.error ??
-        'Failed to resend OTP';
+      const errorData = (err as { response?: { data?: { error?: string | { message?: string } } } })?.response?.data?.error;
+      const msg = typeof errorData === 'object' && errorData !== null
+        ? errorData.message || 'Failed to resend OTP'
+        : (errorData as string) || 'Failed to resend OTP';
       setError(msg);
     } finally {
       setLoading(false);
@@ -118,9 +122,10 @@ export default function ResetPasswordPage() {
       await authApi.verifyOtpAndReset(email, otp, newPassword);
       setSuccess('Password reset successfully! Redirecting to login...');
     } catch (err: unknown) {
-      const msg =
-        (err as { response?: { data?: { error?: string } } })?.response?.data?.error ??
-        'Failed to reset password';
+      const errorData = (err as { response?: { data?: { error?: string | { message?: string } } } })?.response?.data?.error;
+      const msg = typeof errorData === 'object' && errorData !== null
+        ? errorData.message || 'Failed to reset password'
+        : (errorData as string) || 'Failed to reset password';
       setError(msg);
     } finally {
       setLoading(false);
