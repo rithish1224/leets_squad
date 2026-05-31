@@ -108,7 +108,7 @@ export async function recalculateGoalsForUser(userId: string): Promise<void> {
       today,
       user.daily_goal,
       todaySolved,
-      determineStatus(todaySolved, user.daily_goal, false),
+      determineStatus(todaySolved, 1, false),
     ]
   );
 
@@ -164,7 +164,7 @@ export async function recalculateGoalsForUser(userId: string): Promise<void> {
         today,
         daily_goal,
         todaySolved,
-        determineStatus(todaySolved, daily_goal, false),
+        determineStatus(todaySolved, 1, false),
         group_id,
       ]
     );
@@ -198,7 +198,7 @@ async function finalizePastGoals(userId: string, timezone: string): Promise<void
   await query(
     `UPDATE daily_goal_logs
      SET status = CASE
-       WHEN solved_count >= goal_target THEN 'SUCCESS'
+       WHEN solved_count >= 1 THEN 'SUCCESS'
        ELSE 'FAILED'
      END,
      updated_at = NOW()
