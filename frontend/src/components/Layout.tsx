@@ -101,9 +101,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </button>
         </header>
 
-        <nav className={`md:hidden fixed bottom-0 left-0 right-0 flex z-20 px-1 pb-safe transition-all duration-200 ${
-          scrolled ? 'bg-black border-t border-white/10' : 'glass-nav'
-        }`}>
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 flex z-20 px-1 pb-safe bg-black border-t border-white/10">
           {navItems.map(({ path, label, Icon, color }) => (
             <Link
               key={path}
