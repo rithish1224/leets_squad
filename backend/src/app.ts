@@ -14,6 +14,9 @@ import streakRoutes from './routes/streak.routes';
 
 const app = express();
 
+// Trust reverse proxy (Render, Heroku, etc.) to get correct client IPs for rate limiting
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet({
   contentSecurityPolicy: {
