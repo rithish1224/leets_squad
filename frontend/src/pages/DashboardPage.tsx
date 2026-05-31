@@ -107,8 +107,8 @@ export default function DashboardPage() {
         )}
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-          <StatCard label="Current Streak" value={`${streak?.current_streak ?? 0} days`} color="yellow" />
-          <StatCard label="Longest Streak" value={`${streak?.longest_streak ?? 0} days`} color="indigo" />
+          <StatCard label="Current Streak" value={`${streak?.current_streak ?? 0} ${(streak?.current_streak === 1) ? 'day' : 'days'}`} color="yellow" />
+          <StatCard label="Longest Streak" value={`${streak?.longest_streak ?? 0} ${(streak?.longest_streak === 1) ? 'day' : 'days'}`} color="indigo" />
           <StatCard label="Total Solved" value={snapshot?.total_solved ?? 0} color="green" />
           <StatCard
             label="Last Sync"

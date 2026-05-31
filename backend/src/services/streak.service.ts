@@ -18,7 +18,7 @@ export async function recalculateStreakForUser(userId: string): Promise<Streak> 
     goal_date: string;
     status: string;
   }>(
-    `SELECT goal_date, status FROM daily_goal_logs
+    `SELECT TO_CHAR(goal_date, 'YYYY-MM-DD') as goal_date, status FROM daily_goal_logs
      WHERE user_id = $1 AND group_id IS NULL
      ORDER BY goal_date DESC
      LIMIT 365`,

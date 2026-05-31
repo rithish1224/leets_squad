@@ -75,7 +75,7 @@ export default function LeaderboardPage() {
                           <p className="font-medium text-sm truncate">{entry.username}</p>
                         </div>
                         <p className="text-[11px] text-gray-500 mt-1">
-                          Streak {entry.current_streak} days
+                          Streak {entry.current_streak} {entry.current_streak === 1 ? 'day' : 'days'}
                         </p>
                       </div>
                       <div className="text-right text-[11px] text-gray-400 flex-shrink-0">
