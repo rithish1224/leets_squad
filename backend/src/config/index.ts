@@ -32,6 +32,7 @@ export const config = {
     user: process.env.EMAIL_USER || '',
     password: process.env.EMAIL_PASSWORD || '',
     from: process.env.EMAIL_FROM || 'noreply@leetsquad.com',
+    resendApiKey: process.env.RESEND_API_KEY || '',
   },
 };
 
@@ -44,8 +45,7 @@ export function validateProductionConfig() {
       { key: 'DATABASE_URL', value: process.env.DATABASE_URL },
       { key: 'JWT_SECRET', value: process.env.JWT_SECRET },
       { key: 'CORS_ORIGIN', value: process.env.CORS_ORIGIN },
-      { key: 'EMAIL_USER', value: process.env.EMAIL_USER },
-      { key: 'EMAIL_PASSWORD', value: process.env.EMAIL_PASSWORD },
+      { key: 'RESEND_API_KEY', value: config.email.resendApiKey },
     ];
 
     const missing = required.filter(item => !item.value);
