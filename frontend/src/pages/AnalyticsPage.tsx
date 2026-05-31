@@ -185,7 +185,7 @@ export default function AnalyticsPage() {
                 value={solvedOverTime.reduce((s, d) => s + d.count, 0)}
                 color="blue"
               />
-              <StatCard label="Best Streak" value={`${bestStreak} days`} color="yellow" />
+              <StatCard label="Best Streak" value={`${bestStreak} ${bestStreak === 1 ? 'day' : 'days'}`} color="yellow" />
               <StatCard
                 label="Hard Problems"
                 value={difficultyData.find((d) => d.name === 'Hard')?.value ?? 0}

@@ -76,14 +76,14 @@ export default function SettingsPage() {
         <Card>
           <h2 className="text-lg font-semibold text-white mb-4">Account</h2>
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
               <div>
                 <p className="text-gray-400">Username</p>
                 <p className="font-medium mt-0.5">{user?.username}</p>
               </div>
               <div>
                 <p className="text-gray-400">Email</p>
-                <p className="font-medium mt-0.5">{user?.email}</p>
+                <p className="font-medium mt-0.5 break-all">{user?.email}</p>
               </div>
             </div>
           </div>
