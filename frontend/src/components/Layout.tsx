@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -28,6 +28,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleLogout = () => {
     setLogoutConfirmOpen(false);
@@ -80,7 +89,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </aside>
 
       <div className="flex-1 min-w-0 md:ml-64 min-h-screen flex flex-col">
-        <header className="md:hidden glass-nav px-4 py-3 flex items-center justify-between sticky top-0 z-20">
+        <header className={`md:hidden px-4 py-3 flex items-center justify-between sticky top-0 z-20 transition-all duration-200 ${
+          scrolled ? 'bg-black border-b border-white/10' : 'glass-nav'
+        }`}>
           <div className="flex items-center gap-2">
             <Code2 className="w-5 h-5 text-accent" />
             <span className="font-bold text-sm">LeetSquad</span>
@@ -90,7 +101,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </button>
         </header>
 
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 glass-nav flex z-20 px-1 pb-safe">
+        <nav className={`md:hidden fixed bottom-0 left-0 right-0 flex z-20 px-1 pb-safe transition-all duration-200 ${
+          scrolled ? 'bg-black border-t border-white/10' : 'glass-nav'
+        }`}>
           {navItems.map(({ path, label, Icon, color }) => (
             <Link
               key={path}
